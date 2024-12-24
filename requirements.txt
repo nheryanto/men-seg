@@ -1,0 +1,21 @@
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
+
+~/miniconda3/bin/conda init bash
+~/miniconda3/bin/conda init zsh
+
+conda create -n medsam python=3.10 -y
+conda activate medsam
+
+pip3 install --upgrade torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+cd MedSAM
+pip install e .
+pip install monai torchinfo scikit-learn
+
+sudo apt-get install libboost-python-dev build-essential
+python3 -m pip install medpy
+pip install hausdorff numba
+
+ipython kernel install --user --name=medsam
